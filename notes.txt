@@ -1,0 +1,343 @@
+draw.io flow chart
+----------------------------------------------------------------------
+API  -> 
+
+https://hub.dummyapis.com/employee?noofrecords=10&idStarts=1001
+
+----------------------------------------------------------------------
+
+
+
+
+
+vs code extention ->
+ES7+ React/Redux/React-Native snippets
+babel javascript
+prettier code
+Simple React Snippets (not manditory)
+
+----------------------------------------------------------------------
+
+
+// react installing command
+npx create-react-app my-app
+cd my-app
+npm start
+
+----------------------------------------------------------------------
+
+components 1st alphabet should be capital;
+reasone if we use that compnent in jsx file it will treat like jsx element like <h1> <p>
+
+
+rfce -> react function components export
+
+
+rafce -> react arrow function components export
+----------------------------------------------------------------------
+
+
+for installing props types -> 
+npm install props-type 
+
+----------------------------------------------------------------------
+App should return otherwise wont print anything
+
+----------------------------------------------------------------------
+
+use states (facebook likes)
+
+import React, { useState } from 'react';
+const [num, setNum] = useState(0);   *** important
+
+  function like(){
+    setNum(num+1)
+  }
+  function dis(){
+    setNum(num-1)
+  }
+
+----------------------------------------------------------------------
+material ui react library
+  npm install @mui/material @emotion/react @emotion/styled
+
+----------------------------------------------------------------------
+material ui icons react library
+
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+
+----------------------------------------------------------------------
+installing react router dom ->
+
+npm install react-router-dom
+
+----------------------------------------------------------------------
+
+react fregment - parent
+
+->  <>
+        <p><p/>
+        <p><p/>
+    </>
+
+----------------------------------------------------------------------
+multiple component export using object destruring
+
+    import React from 'react'
+
+const Header = () => {
+  return (
+
+<>
+    <h1>this is header</h1>
+</>
+
+  )
+}
+
+
+
+const Footer = () => {
+  return (
+    <div>
+    <h3>Footer</h3></div>
+  )
+}
+
+export {Header, Footer};
+
+
+
+----------------------------------------------------------------------
+css import ->
+
+import './demo.css';
+
+    class name -> 
+    <h1 className='head'>this is header</h1>
+
+    id name -> 
+    <h1 id='man'>{name}</h1>
+
+----------------------------------------------------------------------
+
+props -->
+
+inside parent App 
+
+        <Student
+          name="shiv"
+          age={98}
+        />
+
+        ----
+
+        get in inside component
+
+
+const Student = (props) => {
+  return (
+    <div>
+        <h1>
+        {props.name}
+        </h1>
+        <h1>{props.age}</h1>
+    </div>
+  )
+}
+
+----------------------------------------------------------------------
+
+
+import propsTypes from 'prop-types'
+
+// it will tells the number or string which means data of the content
+Student.prototypes = {
+    name : propsTypes.string,
+    age : propsTypes.string
+}
+
+------
+
+if props didnt get the value we can set the default value to desplay
+
+Student.defaultProps = {
+    name : "name",
+    age : 0
+}
+
+
+----------------------------------------------------------------------
+
+useState Hooks
+
+to - Do add, remove
+
+const [name, funName] = useState("");
+const [data, myData] = useState([])
+
+  const add = () => {
+    myData([...data, {
+      name : name
+    }])
+    funName("")
+  }
+
+  function remove (i){
+    const arr = data;
+    arr.splice(i,1);
+    myData([...arr])
+  }
+
+
+return (
+  <div className='App'>
+
+      <input type="text" value={name} onChange={(e) => funName(e.target.value)} name="" id="" />
+      <button onClick={add}>add</button>
+
+      {
+        data.map((e,i)=>{
+          return(
+
+            <div className='div'>
+              <div>{e.name}</div>
+                <div onClick={remove}><b>[remove]</b></div>
+            </div>
+          )
+        })
+      }
+
+  </div>
+)
+
+
+------------------------------------
+
+
+const [like, myLike] = useState(0);
+
+function funLike(){
+  myLike(like+1)
+}
+
+const dislike = () =>{
+  myLike(like-1)
+}
+            -------------
+
+                <div >{like}</div>
+
+      <button onClick={funLike}>inc</button>
+      <button onClick={dislike}>dec</button>
+
+
+---------------------------------------   
+
+
+
+            use Effect Hooks -> fetching api by clicking the button --> 
+
+const [d, setData] = useState(1);
+// const [data2, setData2] = useState(0);
+
+const [data, myData] = useState([])
+
+
+  useEffect (()=>{
+      // window.alert("hello world")
+async function myFun () {
+  const get = await fetch(`https://hub.dummyapis.com/employee?noofrecords=${d}&idStarts=1001`);
+  const res = await get.json();
+
+  myData(res)
+  console.log(res);
+}
+myFun()
+
+
+  },[d])
+
+return (
+  <div>
+    <button onClick={()=> setData(d+1)}>{d}</button>
+    {/* <button onClick={()=> setData2(data2+1)}>{data2}</button> */}
+    {
+      data.map((e,i)=>{
+        return(
+          <div key={i}>{e.firstName}</div>
+        )
+      })
+    }
+
+  </div>
+)
+
+
+
+---------------------------------------   
+React eVENTS
+
+onChange={}
+onClick={}
+onDoubleClick={}
+onKeyPress={}
+
+
+
+---------------------------------------   
+REACT ROUTING LINKS 
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+
+const Header = () => {
+  return (
+    <div className='div'>
+
+    <Link to={'/home'}  ><div>Hone</div></Link>
+    <Link to={'/contact'}  ><div>contact</div></Link>
+    <Link to={'/about'}  ><div>about</div></Link> 
+    </div>
+
+  )
+}
+
+export default Header
+
+----------
+
+inside App.js import
+
+ import Header from './component/Header';
+  import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Contact from './component/Contact';
+import About from './component/About';
+import Home from './component/Home';
+
+--------
+Router structure
+
+
+return (
+  <Router>
+  <div>
+  <Header/>
+  <Routes>
+
+        <Route path='/' element={<Home/>} />
+        <Route path='/contact' element={<Contact/>} />
+        <Route path='/about' element={<About/>} />
+
+
+  </Routes>
+
+
+  </div>
+  </Router>
+
+)
+
+---------------------------------------   
+props drilling -- context API
+
